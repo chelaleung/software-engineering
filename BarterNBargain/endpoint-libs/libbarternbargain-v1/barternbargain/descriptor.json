@@ -1,28 +1,28 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/itemendpoint/v1/20140306164856/java/1.16.0-rc/ust.hk-itemendpoint-v1-20140306164856-java-1.16.0-rc-sources.jar", 
-      "path": "ust.hk-itemendpoint-v1-20140306164856-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/barternbargain/v1/20140405172013/java/1.16.0-rc/ust.hk-barternbargain-v1-20140405172013-java-1.16.0-rc-sources.jar", 
+      "path": "ust.hk-barternbargain-v1-20140405172013-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-03-06 16:48"
+      "timestamp": "2014-04-05 17:20"
     }, 
     {
-      "path": "ust.hk-itemendpoint-v1-20140306164856-java-1.16.0-rc.jar.properties", 
+      "path": "ust.hk-barternbargain-v1-20140405172013-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
   "proguard-config": "proguard-google-api-client.txt", 
   "ownerDomain": "ust.hk", 
   "moduleName": "hk.ust.barternbargain", 
-  "name": "itemendpoint", 
+  "name": "barternbargain", 
   "language": "java", 
-  "title": "itemendpoint", 
+  "title": "barternbargain", 
   "version": "v1", 
   "kind": "discovery#directoryItem", 
   "modulePath": "hk/ust/barternbargain", 
   "maven": {
     "group_id": "hk.ust", 
-    "artifact_id": "barternbargain-itemendpoint", 
+    "artifact_id": "barternbargain-barternbargain", 
     "version": "v1-1.16.0-rc-SNAPSHOT"
   }, 
   "dependencies": [
@@ -701,6 +701,6 @@
   "ownerName": "ust.hk", 
   "packagePath": "barternbargain", 
   "language_version": "1.16.0-rc", 
-  "id": "itemendpoint:v1", 
-  "revision": 20140306164856
+  "id": "barternbargain:v1", 
+  "revision": 20140405172013
 }

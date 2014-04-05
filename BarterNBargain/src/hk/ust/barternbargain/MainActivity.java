@@ -10,25 +10,24 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Button;
-import hk.ust.barternbargain.itemendpoint.Itemendpoint;
-import hk.ust.barternbargain.itemendpoint.model.*;
+import hk.ust.barternbargain.barternbargain.Barternbargain;
+import hk.ust.barternbargain.barternbargain.model.Item;
 
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	private Itemendpoint service;
+	private Barternbargain service;
 	private TextView textView;
 	private Button button;
 	private final Runnable retrieveItemList = new Runnable () {
 		public void run() {
 			try {
-				CollectionResponseItem response = service.listItem().execute();
-				List<Item> list = response.getItems();
+				List<Item> response = service.listItem().execute().getItems();
 				String strList = "";
-				for (Item item : list) {
-					strList += item.getName() + ": " + item.getDesc() + "\n";
+				for (Item item : response) {
+					strList += item.getName() + ": " + item.getDescription() + "\n";
 				}
 				showTextHandler.sendMessage(showTextHandler.obtainMessage(0, strList));
 			} catch (Exception e) {
@@ -51,7 +50,7 @@ public class MainActivity extends Activity implements OnClickListener {
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(this);
         
-        Itemendpoint.Builder builder = new Itemendpoint.Builder(
+        Barternbargain.Builder builder = new Barternbargain.Builder(
         		AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
         service = builder.build();
     }
