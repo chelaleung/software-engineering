@@ -1,6 +1,8 @@
 package hk.ust.barternbargain;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonError;
@@ -17,12 +19,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
+	
+	
 	private EditText username=null;
 	private EditText password=null;
 	private Button login;
@@ -33,7 +40,10 @@ public class MainActivity extends Activity {
 		username = (EditText)findViewById(R.id.editText1);
 		password = (EditText)findViewById(R.id.editText2);
 		login = (Button)findViewById(R.id.button1);
+		
 	}
+	
+
 
 	private final Runnable loginRunnable = new Runnable () {
 		public void run() {

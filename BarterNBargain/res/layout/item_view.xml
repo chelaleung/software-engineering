@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewtag"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/vewtag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item1name"
+        android:layout_toRightOf="@+id/item1image"
+        android:layout_alignParentBottom="true"
+        android:text="Views:"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#0000ff" />
+
+    <TextView
+        android:id="@+id/item1views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/vewtag"
+        android:layout_alignBottom="@+id/vewtag"
+        android:layout_toRightOf="@+id/vewtag"
+        android:layout_alignParentBottom="true"
+        android:text="ItemViews"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#0000ff" />
+
+    <ImageView
+        android:id="@+id/item1image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:maxHeight="70dp"
+        android:maxWidth="70dp"
+        android:minHeight="70dp"
+        android:minWidth="70dp"
+        android:src="@drawable/item1" />
+
+    <TextView
+        android:id="@+id/item1name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/item1image"
+        android:text="ItemName"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0000ff" />
+
+    <TextView
+        android:id="@+id/item1price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/item1name"
+        android:layout_marginRight="18dp"
+        android:layout_alignParentBottom="true"
+        android:text="ItemPrice"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0000ff" />
+
+    <TextView
+        android:id="@+id/dolloarsign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/item1price"
+        android:layout_alignBottom="@+id/item1price"
+        android:layout_toLeftOf="@+id/item1price"
+        android:layout_alignParentBottom="true"
+        android:text="$"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0000ff" />
+
+</RelativeLayout>

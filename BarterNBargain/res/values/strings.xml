@@ -6,7 +6,7 @@
     <string name="hello_world">Please Login</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>
-    <string name="Login">Login:</string>
+    <string name="Login">Login</string>
     <string name="title_activity_list_items">ShowItems</string>
     
     <string name="search_hint">Enter Keywords</string>
