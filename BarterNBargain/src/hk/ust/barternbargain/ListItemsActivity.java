@@ -8,22 +8,42 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.os.Build;
 
-public class ShowItems extends ActionBarActivity {
-	
+public class ListItemsActivity extends ActionBarActivity implements OnClickListener {
+
+	private Button search;
+
+	@Override 
+	public void onClick(View v) { 
+		onSearchRequested();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_show_items);
+		setContentView(R.layout.activity_list_items);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		search = (Button)findViewById(R.id.button3);
+		search.setOnClickListener(this);
 	}
-	
+
+	@Override
+	public boolean onSearchRequested() {
+
+		Bundle appDataBundle = new Bundle(); 
+		startSearch("",false, appDataBundle, false); 
+		return true; 
+	}
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -55,7 +75,7 @@ public class ShowItems extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_show_items,
+			View rootView = inflater.inflate(R.layout.fragment_list_items,
 					container, false);
 			return rootView;
 		}

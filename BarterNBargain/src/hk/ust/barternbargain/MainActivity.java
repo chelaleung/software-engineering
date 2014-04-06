@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 				Barternbargain service = getApiServiceHandle();
 				String user = username.getText().toString();
 				String pass = password.getText().toString();
-				Session session = service.insertSession(user, pass).execute();
+				Session session = service.insertSession(pass, user).execute();
 				loginHandler.sendMessage(
 						loginHandler.obtainMessage(0, null));
 			} catch (GoogleJsonResponseException e) {
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 			if (msg.what == 0) {
 				Toast.makeText(getApplicationContext(), "Redirecting...", 
 						Toast.LENGTH_SHORT).show();
-				Intent myIntent = new Intent(MainActivity.this, ShowItems.class);
+				Intent myIntent = new Intent(MainActivity.this, ListItemsActivity.class);
 				startActivity(myIntent);
 			} else if (msg.what == 1) {
 				Toast.makeText(getApplicationContext(), "Wrong credentials",
