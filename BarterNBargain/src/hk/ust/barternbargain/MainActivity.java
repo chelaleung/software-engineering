@@ -1,63 +1,104 @@
 package hk.ust.barternbargain;
 
-import java.util.List;
+import java.io.IOException;
 
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.json.GoogleJsonError;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+
+import hk.ust.barternbargain.barternbargain.Barternbargain;
+import hk.ust.barternbargain.barternbargain.model.Session;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
+import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 import android.widget.Button;
-import hk.ust.barternbargain.barternbargain.Barternbargain;
-import hk.ust.barternbargain.barternbargain.model.Item;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.client.extensions.android.http.AndroidHttp;
+public class MainActivity extends Activity {
 
-public class MainActivity extends Activity implements OnClickListener {
+	private EditText username=null;
+	private EditText password=null;
+	private Button login;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		username = (EditText)findViewById(R.id.editText1);
+		password = (EditText)findViewById(R.id.editText2);
+		login = (Button)findViewById(R.id.button1);
+	}
 
-	private Barternbargain service;
-	private TextView textView;
-	private Button button;
-	private final Runnable retrieveItemList = new Runnable () {
+	private final Runnable loginRunnable = new Runnable () {
 		public void run() {
 			try {
-				List<Item> response = service.listItem().execute().getItems();
-				String strList = "";
-				for (Item item : response) {
-					strList += item.getName() + ": " + item.getDescription() + "\n";
+				Barternbargain service = getApiServiceHandle();
+				String user = username.getText().toString();
+				String pass = password.getText().toString();
+				Session session = service.insertSession(user, pass).execute();
+				loginHandler.sendMessage(
+						loginHandler.obtainMessage(0, null));
+			} catch (GoogleJsonResponseException e) {
+				if (e.getStatusCode() == 401) {
+					loginHandler.sendMessage(
+							loginHandler.obtainMessage(1, null));
+				} else {
+					loginHandler.sendMessage(
+							loginHandler.obtainMessage(2, null));
 				}
-				showTextHandler.sendMessage(showTextHandler.obtainMessage(0, strList));
-			} catch (Exception e) {
-				showTextHandler.sendMessage(showTextHandler.obtainMessage(0, e.toString()));
+			} catch (IOException e) {
+				loginHandler.sendMessage(
+						loginHandler.obtainMessage(2, null));
 			}
 		}
 	};
-	private Handler showTextHandler = new Handler () {
+	
+	private final Handler loginHandler = new Handler () {
 		public void handleMessage(Message msg) {
-			textView.setText((String)msg.obj);
+			if (msg.what == 0) {
+				Toast.makeText(getApplicationContext(), "Redirecting...", 
+						Toast.LENGTH_SHORT).show();
+				Intent myIntent = new Intent(MainActivity.this, ShowItems.class);
+				startActivity(myIntent);
+			} else if (msg.what == 1) {
+				Toast.makeText(getApplicationContext(), "Wrong credentials",
+						Toast.LENGTH_SHORT).show();
+			} else if (msg.what == 2) {
+				Toast.makeText(getApplicationContext(), "Network connection error",
+						Toast.LENGTH_SHORT).show();
+			}
+			login.setEnabled(true);
 		}
 	};
 	
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        textView = (TextView) findViewById(R.id.text);
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(this);
-        
-        Barternbargain.Builder builder = new Barternbargain.Builder(
-        		AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
-        service = builder.build();
-    }
+	public void login(View view){
+		Toast.makeText(getApplicationContext(), "Logging in...", 
+				Toast.LENGTH_SHORT).show();
+		new Thread(loginRunnable).start();
+	}	
 
 	@Override
-	public void onClick(View v) { 
-		new Thread(retrieveItemList).start();
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
-    
+
+
+	private static Barternbargain getApiServiceHandle() {
+		// Use a builder to help formulate the API request.
+		Barternbargain.Builder builder = new Barternbargain.Builder(HTTP_TRANSPORT,
+				GSON_FACTORY,null);
+		return builder.build();
+	}
+
+	private static final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
+	private static final GsonFactory GSON_FACTORY = new GsonFactory();
+
 }
