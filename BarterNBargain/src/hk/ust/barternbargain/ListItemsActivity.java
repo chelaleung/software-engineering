@@ -40,12 +40,22 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 	private static final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
 	private static final GsonFactory GSON_FACTORY = new GsonFactory();
 
+	private static long[] itemId = {
+		5750085036015616L,
+		5657382461898752L,
+		5733935958982656L,
+		5693417237512192L,
+		5766466041282560L,
+		5634387206995968L,
+		5700735861784576L};
+	
 	private Button search;
 	private Button mostpopular;
 	private Button price;
 	private List<Item> items = new ArrayList<Item>();
 	private List<Item> searcheditems = new ArrayList<Item>();
 	private List<Item> sorteditems = new ArrayList<Item>();
+	
 
 	//flag for sorting by price
 	public static int flag = 0;
@@ -149,7 +159,7 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 				Item clickedItem = items.get(position);
 				clickedItem.incrementViews();
 				Intent intent = new Intent(getApplicationContext(),ShowItemActivity.class);
-				intent.putExtra(clickedItem.getName(),id);
+				intent.putExtra("ITEM_ID", itemId[position]);
 				startActivity(intent);
 
 
@@ -312,6 +322,11 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
 	}
 
 	/**

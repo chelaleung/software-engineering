@@ -29,15 +29,19 @@ import android.widget.TextView;
 public class ShowItemActivity extends Activity implements OnClickListener {
 
 	private ProgressDialog progressDialog;
+	private TextView textSeller;
+	private TextView textName;
+	private TextView textDescription;
+	private TextView textPrice;
 	private Button buyButton;
-	private static final Long ITEM_ID = 5693417237512192L;
-	private long myPrice = 0;
+	private Long itemId;
+	private Item item;
 	
 	private final Runnable loadImageRunnable = new Runnable () {
 		public void run() {
 			try {
 				Barternbargain service = getApiServiceHandle();
-				Item item = service.getItem(ITEM_ID).execute();
+				item = service.getItem(itemId).execute();
 				List<String> imageUrls = item.getImageUrl();
 				if (imageUrls.size() != 0) {
 					URL url = new URL(imageUrls.get(0));
@@ -64,17 +68,12 @@ public class ShowItemActivity extends Activity implements OnClickListener {
 				imageView.setImageBitmap((Bitmap)msg.obj);
 			} else if (msg.what == 1) {
 				Item item = (Item)msg.obj;
-				TextView seller = (TextView)findViewById(R.id.textViewSeller);
-				TextView name = (TextView)findViewById(R.id.textViewName);
-				TextView description = (TextView)findViewById(R.id.textViewDescription);
-				TextView price = (TextView)findViewById(R.id.textViewPrice);
-				seller.setText(item.getUserId());
+				textSeller.setText(item.getUserId());
 				if (item.getDescription() != null) {
-					description.setText(item.getDescription());
+					textDescription.setText(item.getDescription());
 				}
-				name.setText(item.getName());
-				price.setText("$" + Long.toString(item.getPrice()));
-				myPrice = item.getPrice();
+				textName.setText(item.getName());
+				textPrice.setText("$" + Long.toString(item.getPrice()));
 			} else if (msg.what == 2) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(ShowItemActivity.this);
 				builder.setTitle("Error");
@@ -83,12 +82,18 @@ public class ShowItemActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_item);
+		itemId = getIntent().getLongExtra("ITEM_ID", 5693417237512192L);
 		buyButton = (Button)findViewById(R.id.buttonLogin);
+
+		textSeller = (TextView)findViewById(R.id.textViewSeller);
+		textName = (TextView)findViewById(R.id.textViewName);
+		textDescription = (TextView)findViewById(R.id.textViewDescription);
+		textPrice = (TextView)findViewById(R.id.textViewPrice);
+		
 		buyButton.setOnClickListener(this);
 		progressDialog = ProgressDialog.show(this, "Loading", "Retrieving item details...");
 		new Thread(loadImageRunnable).start();
@@ -107,9 +112,14 @@ public class ShowItemActivity extends Activity implements OnClickListener {
 			AlertDialog.Builder builder = new AlertDialog.Builder(ShowItemActivity.this);
 			builder.setTitle("Item bought");
 			builder.setMessage("You have bought the item for $" + 
-					Integer.toString((int)myPrice) + ".");
+					item.getPrice().toString() + ".");
 			builder.show();
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
 	}
 
 	private static Barternbargain getApiServiceHandle() {

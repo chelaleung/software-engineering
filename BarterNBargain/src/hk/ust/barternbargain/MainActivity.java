@@ -58,6 +58,11 @@ public class MainActivity extends Activity {
 	}
 	
 	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	
+	@Override
 	protected void onResume() {
 		super.onResume();
 		buttonLogin.setEnabled(true);
