@@ -1,36 +1,89 @@
 package hk.ust.barternbargain;
 
+import hk.ust.barternbargain.barternbargain.Barternbargain;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.os.Build;
 
 public class ListItemsActivity extends ActionBarActivity implements OnClickListener {
 
+	private static final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
+	private static final GsonFactory GSON_FACTORY = new GsonFactory();
+
 	private Button search;
+	private Button mostpopular;
+	private Button price;
 	private List<Item> items = new ArrayList<Item>();
+	private List<Item> searcheditems = new ArrayList<Item>();
+	private List<Item> sorteditems = new ArrayList<Item>();
+
+	//flag for sorting by price
+	public static int flag = 0;
 
 	@Override 
 	public void onClick(View v) { 
 		onSearchRequested();
-		startActivity(new Intent(ListItemsActivity.this, ShowItemActivity.class));
 	}
+
+	private static Barternbargain getApiServiceHandle() {
+		// Use a builder to help formulate the API request.
+		Barternbargain.Builder builder = new Barternbargain.Builder(HTTP_TRANSPORT,
+				GSON_FACTORY,null);
+		return builder.build();
+	}
+
+	private final Runnable loadItemRunnable = new Runnable () {
+		public void run() {
+			Barternbargain service = getApiServiceHandle();
+			try {
+				loadItemHandler.sendMessage(
+						loadItemHandler.obtainMessage(0, 
+								service.listItem().execute().getItems()));
+			} catch (IOException e) {
+
+			}
+		}
+	};
+
+	private final Handler loadItemHandler = new Handler () {
+		public void handleMessage(Message msg) {
+			if (msg.what == 0) {
+				List<hk.ust.barternbargain.barternbargain.model.Item> items = 
+						(List<hk.ust.barternbargain.barternbargain.model.Item>) msg.obj;
+			}
+		}
+	};
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +94,118 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+
+		//Invoke Search
 		search = (Button)findViewById(R.id.button3);
 		search.setOnClickListener(this);
-		
+
 		//ListItems
-				populateItemList();
-				populateListView();
+		populateItemList();
+		populateListView();
+		registerClickCallback();
+
+		//Invoke MostPopular
+		mostpopular = (Button)findViewById(R.id.button2);
+		mostpopular.setOnClickListener(new MostPopularListener());
+
+		//Invoke SortByPrice
+		price = (Button)findViewById(R.id.button4);
+		price.setOnClickListener(new PriceListener());
 	}
 
+
+
+
+	//Add Items
+	private void populateItemList() {
+		//more items to be added
+		items.add(new Item(R.drawable.item1,"Textbook",999999,0,"New","Cash"));
+		items.add(new Item(R.drawable.item2,"Iphone 10",1,10,"New","Cash"));
+		items.add(new Item(R.drawable.item3,"Notebook",500,999,"New","Barter"));
+		items.add(new Item(R.drawable.item4,"Macbook",35,23,"New","Cash"));
+		items.add(new Item(R.drawable.item5,"Ball",9999,10,"New","Barter"));
+		items.add(new Item(R.drawable.item6,"Glasses",5,54,"Used","Barter"));
+		items.add(new Item(R.drawable.item7,"Coke",9998,9,"New","Cash"));
+
+	}
+
+	//List All Items
+	private void populateListView() {
+		ArrayAdapter<Item> adapter = new MyListAdapter(items);
+		ListView list = (ListView) findViewById(R.id.itemsListView);
+		list.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
+	}
+
+	//ClickItems
+	private void registerClickCallback() {
+		ListView list = (ListView) findViewById(R.id.itemsListView);
+		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View viewClicked, int position,
+					long id) {
+
+				Item clickedItem = items.get(position);
+				clickedItem.incrementViews();
+				Intent intent = new Intent(getApplicationContext(),ShowItemActivity.class);
+				intent.putExtra(clickedItem.getName(),id);
+				startActivity(intent);
+
+
+			}
+		});
+
+	}
+
+	//ItemAdapter
+	private class MyListAdapter extends ArrayAdapter<Item>{
+
+		private List<Item> items;
+
+		public MyListAdapter(List<Item> items){
+
+			super(ListItemsActivity.this,R.layout.item_view,items);
+			this.items = items;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			//Make sure there's a view to work with
+			View itemView = convertView;
+
+
+			if (itemView ==null){
+				itemView = getLayoutInflater().inflate(R.layout.item_view, parent,false);
+
+			}
+
+			//find the item to work with
+
+			Item currentItem = items.get(position);
+
+			//fill the view
+			ImageView imageView = (ImageView)itemView.findViewById(R.id.item1image);
+			imageView.setImageResource(currentItem.getPictureID());
+
+			//Name:
+			TextView nameText = (TextView) itemView.findViewById(R.id.item1name);
+			nameText.setText(currentItem.getName());
+
+			//Price
+			TextView priceText = (TextView) itemView.findViewById(R.id.item1price);
+			priceText.setText(""+currentItem.getPrice());
+
+			TextView viewText = (TextView) itemView.findViewById(R.id.item1views);
+			viewText.setText(""+currentItem.getViews());
+
+			return itemView;
+		}
+
+
+	}
+
+	//Generate Search query
 	@Override
 	public boolean onSearchRequested() {
 
@@ -56,64 +213,84 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		startSearch("",false, appDataBundle, false); 
 		return true; 
 	}
-	
-	//Add Items
-	private void populateItemList() {
-		//more items to be added
-		items.add(new Item(R.drawable.item1,"Textbook",999999,999,"New","Cash"));
-		items.add(new Item(R.drawable.item2,"Iphone 10",1,23,"New","Cash"));
-		items.add(new Item(R.drawable.item3,"Notebook",500,34,"New","Barter"));
-		items.add(new Item(R.drawable.item4,"Macbook",35,43,"New","Cash"));
-		items.add(new Item(R.drawable.item5,"Ball",9999,23,"New","Barter"));
-		items.add(new Item(R.drawable.item6,"Glasses",5,23,"Used","Barter"));
-		items.add(new Item(R.drawable.item7,"Coke",9998,234,"New","Cash"));
-		
+
+	protected void onNewIntent(Intent intent){
+		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+			String query = intent.getStringExtra(SearchManager.QUERY);
+			doMySearch(query);
+		}
 	}
-	
-	//List Items
-	private void populateListView() {
-		ArrayAdapter<Item> adapter = new MyListAdapter();
-		ListView list = (ListView) findViewById(R.id.itemsListView);
-		list.setAdapter(adapter);
-	}
-	
-	private class MyListAdapter extends ArrayAdapter<Item>{
-		public MyListAdapter(){
-			super(ListItemsActivity.this,R.layout.item_view,items);
+
+	//Do search and list searched items
+	private void doMySearch(String query) {
+		searcheditems.clear();
+		for(int i=0;i<items.size();i++)
+		{
+			if(items.get(i).getName().equals(query))
+			{
+				searcheditems.add(items.get(i));
+			}
 		}
 
+		ArrayAdapter<Item> adapter = new MyListAdapter(searcheditems);
+		ListView list = (ListView) findViewById(R.id.itemsListView);
+		list.setAdapter(adapter);
+
+	}
+
+	//Do MostPopular and list sorted items
+
+	public class MostPopularListener implements OnClickListener{
+
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			//Make sure there's a view to work with
-			View itemView = convertView;
-			if (itemView ==null){
-				itemView = getLayoutInflater().inflate(R.layout.item_view, parent,false);
-				
+		public void onClick(View view) {
+			if (sorteditems.size() == 0) {
+				sorteditems = items;
 			}
-			
-			//find the item to work with
-			
-			Item currentItem = items.get(position);
-			
-			//fill the view
-			ImageView imageView = (ImageView)itemView.findViewById(R.id.item1image);
-			imageView.setImageResource(currentItem.getPictureID());
-			
-			//Name:
-			TextView nameText = (TextView) itemView.findViewById(R.id.item1name);
-			nameText.setText(currentItem.getName());
-			
-			//Price
-			TextView priceText = (TextView) itemView.findViewById(R.id.item1price);
-			priceText.setText(""+currentItem.getPrice());
-			
-			TextView viewText = (TextView) itemView.findViewById(R.id.item1views);
-			viewText.setText(""+currentItem.getViews());
-			
-			return itemView;
+			Collections.sort(sorteditems, new Comparator<Item>(){
+				@Override
+				public int compare(Item item1, Item item2){
+					return item2.getViews() - item1.getViews();   				
+				}
+			});
+
+			//Show sorted items
+			ArrayAdapter<Item> adapter = new MyListAdapter(sorteditems);
+			ListView list = (ListView) findViewById(R.id.itemsListView);
+			list.setAdapter(adapter);    	
 		}
-		
-		
+	}
+
+	//Do SortByPrice and list sorted items
+	public class PriceListener implements OnClickListener{
+
+		@Override
+		public void onClick(View view) {
+			if (sorteditems.size() == 0) {
+				sorteditems = items;
+			}
+			if (flag == 0) {
+				Collections.sort(sorteditems, new Comparator<Item>() {
+					@Override
+					public int compare(Item item1, Item item2) {
+						return item1.getPrice() - item2.getPrice();
+					}
+				});
+				flag = 1;
+			} else {
+				Collections.sort(sorteditems, new Comparator<Item>() {
+					@Override
+					public int compare(Item item1, Item item2) {
+						return item2.getPrice() - item1.getPrice();
+					}
+				});
+				flag = 0;
+			}
+			ArrayAdapter<Item> adapter = new MyListAdapter(sorteditems);
+			ListView list = (ListView) findViewById(R.id.itemsListView);
+			list.setAdapter(adapter);    
+		}
+
 	}
 
 

@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,68 +29,85 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	
-	
-	private EditText username=null;
-	private EditText password=null;
-	private Button login;
+
+	private static final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
+	private static final GsonFactory GSON_FACTORY = new GsonFactory();
+
+	private static final int LOGIN_SUCCESS = 0;
+	private static final int WRONG_CREDENTIAL = 1;
+	private static final int NETWORK_ERROR = 2;
+
+	private EditText editUsername;
+	private EditText editPassword;
+	private Button buttonLogin;
+
+	private static Barternbargain getApiServiceHandle() {
+		// Use a builder to help formulate the API request.
+		Barternbargain.Builder builder = new Barternbargain.Builder(HTTP_TRANSPORT,
+				GSON_FACTORY,null);
+		return builder.build();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		username = (EditText)findViewById(R.id.editText1);
-		password = (EditText)findViewById(R.id.editText2);
-		login = (Button)findViewById(R.id.button1);
-		
+		editUsername = (EditText)findViewById(R.id.editUsername);
+		editPassword = (EditText)findViewById(R.id.editPassword);
+		buttonLogin = (Button)findViewById(R.id.buttonLogin);
 	}
 	
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		buttonLogin.setEnabled(true);
+	}
 
 	private final Runnable loginRunnable = new Runnable () {
 		public void run() {
 			try {
 				Barternbargain service = getApiServiceHandle();
-				String user = username.getText().toString();
-				String pass = password.getText().toString();
-				Session session = service.insertSession(pass, user).execute();
-				loginHandler.sendMessage(
-						loginHandler.obtainMessage(0, null));
+				String user = editUsername.getText().toString();
+				String pass = editPassword.getText().toString();
+				service.insertSession(pass, user).execute();
+				loginHandler.sendEmptyMessage(LOGIN_SUCCESS);
 			} catch (GoogleJsonResponseException e) {
 				if (e.getStatusCode() == 401) {
-					loginHandler.sendMessage(
-							loginHandler.obtainMessage(1, null));
+					loginHandler.sendEmptyMessage(WRONG_CREDENTIAL);
 				} else {
-					loginHandler.sendMessage(
-							loginHandler.obtainMessage(2, null));
+					loginHandler.sendEmptyMessage(NETWORK_ERROR);
 				}
 			} catch (IOException e) {
-				loginHandler.sendMessage(
-						loginHandler.obtainMessage(2, null));
+				loginHandler.sendEmptyMessage(NETWORK_ERROR);
 			}
 		}
 	};
-	
+
 	private final Handler loginHandler = new Handler () {
 		public void handleMessage(Message msg) {
-			if (msg.what == 0) {
-				Toast.makeText(getApplicationContext(), "Redirecting...", 
-						Toast.LENGTH_SHORT).show();
+			if (msg.what == LOGIN_SUCCESS) {
+				showMessage("Redirecting...");
 				Intent myIntent = new Intent(MainActivity.this, ListItemsActivity.class);
 				startActivity(myIntent);
-			} else if (msg.what == 1) {
-				Toast.makeText(getApplicationContext(), "Wrong credentials",
-						Toast.LENGTH_SHORT).show();
-			} else if (msg.what == 2) {
-				Toast.makeText(getApplicationContext(), "Network connection error",
-						Toast.LENGTH_SHORT).show();
+			} else if (msg.what == WRONG_CREDENTIAL) {
+				showMessage("Wrong credentials");
+				buttonLogin.setEnabled(true);
+			} else if (msg.what == NETWORK_ERROR) {
+				showMessage("Network connection error");
+				buttonLogin.setEnabled(true);
 			}
-			login.setEnabled(true);
 		}
 	};
-	
+
+	private void showMessage(String message) {
+		Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.TOP, 0, 0);
+		toast.show();
+	}
+
 	public void login(View view){
-		Toast.makeText(getApplicationContext(), "Logging in...", 
-				Toast.LENGTH_SHORT).show();
+		buttonLogin.setEnabled(false);
+		showMessage("Signing in...");
 		new Thread(loginRunnable).start();
 	}	
 
@@ -99,16 +117,5 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
-
-	private static Barternbargain getApiServiceHandle() {
-		// Use a builder to help formulate the API request.
-		Barternbargain.Builder builder = new Barternbargain.Builder(HTTP_TRANSPORT,
-				GSON_FACTORY,null);
-		return builder.build();
-	}
-
-	private static final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
-	private static final GsonFactory GSON_FACTORY = new GsonFactory();
 
 }

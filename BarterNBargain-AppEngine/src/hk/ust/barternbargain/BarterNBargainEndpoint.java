@@ -193,7 +193,7 @@ public class BarterNBargainEndpoint {
 			if (item == null) {
 				throw new NotFoundException("Item not found");
 			}
-			if (!item.getUserId().equals(getSession(sessionId).getUserId())) {
+			if (item.getUserId() != null && !item.getUserId().equals(getSession(sessionId).getUserId())) {
 				throw new ForbiddenException("Item not belong to session's user");
 			}
 		} finally {

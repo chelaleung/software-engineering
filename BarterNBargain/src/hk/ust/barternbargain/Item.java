@@ -26,6 +26,11 @@ public class Item {
 	public int getViews() {
 		return views;
 	}
+	
+	public void incrementViews(){
+		views += 1;
+	}
+	
 	public String getCondition() {
 		return condition;
 	}

@@ -18,7 +18,7 @@
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -28,22 +28,20 @@
             android:textSize="@dimen/item_price_text_size" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textViewSeller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/item_seller_margin"
-            android:text="mfptai"
             android:textColor="#ffffff"
             android:textSize="@dimen/item_seller_text_size" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="@dimen/item_title_margin"
             android:layout_weight="1"
-            android:text="New Rubik&apos;s Cube"
             android:textColor="#ffffff"
             android:textSize="@dimen/item_title_text_size"
             android:textStyle="bold" />
@@ -58,18 +56,18 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewDescription"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:text="43 quintillion moves ~ but only one solution!! Hours of fun ~ hard to put down ~ very addictive with practice it can be done in 10 seconds excellent condition ~ shows hardly any use or wear" />
+            android:text="" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/buttonLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Buy!" />

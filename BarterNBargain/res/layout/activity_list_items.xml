@@ -4,18 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:background="#ffa550"
+    android:background="#000000"
     tools:context="hk.ust.barternbargain.ListItemsActivity"
     tools:ignore="MergeRootFrame" >
-    <Button
-        android:id="@+id/button4"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical"
-        android:text="        Price" />
 
     <Button
         android:id="@+id/button2"
@@ -26,24 +17,35 @@
         android:layout_alignParentTop="true"
         android:text="Most Popular" />
 
+    <ListView
+        android:id="@+id/itemsListView"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="16dp" >
+    </ListView>
+
     <Button
         android:id="@+id/button3"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button4"
+        android:layout_marginLeft="1dp"
+        android:layout_toRightOf="@+id/button2"
         android:gravity="center_vertical"
         android:text="      Search" />
 
-    <ListView
-        android:id="@+id/itemsListView"
-        android:layout_width="match_parent"
-        android:layout_height="380dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button4"
-        android:layout_marginTop="16dp" >
-    </ListView>
+    <ToggleButton
+        android:id="@+id/button4"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemsListView"
+        android:layout_alignParentRight="true"
+        android:textOff="Price↑"
+        android:textOn ="Price↓"
+        android:text="Price" />
 
 </RelativeLayout>
 

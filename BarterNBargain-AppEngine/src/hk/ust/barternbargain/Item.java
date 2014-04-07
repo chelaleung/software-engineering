@@ -17,6 +17,10 @@ public class Item {
 	
 	private String userId;
 	
+	private Long price;
+	
+	private Long view;
+	
 	private Date postingTime;
 
 	private String name;
@@ -25,6 +29,24 @@ public class Item {
 	
 	private String description;
 	
+	private String status;
+	
+	public Long getView() {
+		return view;
+	}
+
+	public void setView(Long view) {
+		this.view = view;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	private Collection<String> imageUrl;
 
 	public void setId(Long id) {
@@ -50,6 +72,15 @@ public class Item {
 	public void setPostingTime(Date postingTime) {
 		this.postingTime = postingTime;
 	}
+	
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
 
 	public String getName() {
 		return name;

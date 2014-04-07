@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"gWnWV7fYC80JM0beuSxOtzgfiS0/8QfsTY1qG9aG4JJUK3cUWNPQts0\"",
+ "etag": "\"gWnWV7fYC80JM0beuSxOtzgfiS0/ckzsAWAF2oV8Z_kat8yHFLpLkBg\"",
  "discoveryVersion": "v1",
  "id": "barternbargain:v1",
  "name": "barternbargain",
@@ -135,8 +135,19 @@
      "type": "string",
      "format": "date-time"
     },
+    "price": {
+     "type": "string",
+     "format": "int64"
+    },
+    "status": {
+     "type": "string"
+    },
     "userId": {
      "type": "string"
+    },
+    "view": {
+     "type": "string",
+     "format": "int64"
     }
    }
   },
