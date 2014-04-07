@@ -1,5 +1,8 @@
 package hk.ust.barternbargain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -11,12 +14,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.os.Build;
 
 public class ListItemsActivity extends ActionBarActivity implements OnClickListener {
 
 	private Button search;
+	private List<Item> items = new ArrayList<Item>();
 
 	@Override 
 	public void onClick(View v) { 
@@ -35,6 +43,10 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		}
 		search = (Button)findViewById(R.id.button3);
 		search.setOnClickListener(this);
+		
+		//ListItems
+				populateItemList();
+				populateListView();
 	}
 
 	@Override
@@ -43,6 +55,65 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		Bundle appDataBundle = new Bundle(); 
 		startSearch("",false, appDataBundle, false); 
 		return true; 
+	}
+	
+	//Add Items
+	private void populateItemList() {
+		//more items to be added
+		items.add(new Item(R.drawable.item1,"Textbook",999999,999,"New","Cash"));
+		items.add(new Item(R.drawable.item2,"Iphone 10",1,23,"New","Cash"));
+		items.add(new Item(R.drawable.item3,"Notebook",500,34,"New","Barter"));
+		items.add(new Item(R.drawable.item4,"Macbook",35,43,"New","Cash"));
+		items.add(new Item(R.drawable.item5,"Ball",9999,23,"New","Barter"));
+		items.add(new Item(R.drawable.item6,"Glasses",5,23,"Used","Barter"));
+		items.add(new Item(R.drawable.item7,"Coke",9998,234,"New","Cash"));
+		
+	}
+	
+	//List Items
+	private void populateListView() {
+		ArrayAdapter<Item> adapter = new MyListAdapter();
+		ListView list = (ListView) findViewById(R.id.itemsListView);
+		list.setAdapter(adapter);
+	}
+	
+	private class MyListAdapter extends ArrayAdapter<Item>{
+		public MyListAdapter(){
+			super(ListItemsActivity.this,R.layout.item_view,items);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			//Make sure there's a view to work with
+			View itemView = convertView;
+			if (itemView ==null){
+				itemView = getLayoutInflater().inflate(R.layout.item_view, parent,false);
+				
+			}
+			
+			//find the item to work with
+			
+			Item currentItem = items.get(position);
+			
+			//fill the view
+			ImageView imageView = (ImageView)itemView.findViewById(R.id.item1image);
+			imageView.setImageResource(currentItem.getPictureID());
+			
+			//Name:
+			TextView nameText = (TextView) itemView.findViewById(R.id.item1name);
+			nameText.setText(currentItem.getName());
+			
+			//Price
+			TextView priceText = (TextView) itemView.findViewById(R.id.item1price);
+			priceText.setText(""+currentItem.getPrice());
+			
+			TextView viewText = (TextView) itemView.findViewById(R.id.item1views);
+			viewText.setText(""+currentItem.getViews());
+			
+			return itemView;
+		}
+		
+		
 	}
 
 
