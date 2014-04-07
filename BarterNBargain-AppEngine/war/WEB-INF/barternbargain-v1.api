@@ -212,6 +212,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "barternbargain.listUserTrade" : {
+      "path" : "users/{userId}/trades",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listUserTrade",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "barternbargain.acceptTrade" : {
       "path" : "trades/{id}/accept",
       "httpMethod" : "POST",
@@ -228,27 +249,6 @@
           },
           "id" : {
             "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.listUserTrade" : {
-      "path" : "users/{userId}/trades",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listUserTrade",
-      "request" : {
-        "parameters" : {
-          "userId" : {
-            "type" : "string",
             "required" : true
           }
         },
@@ -320,6 +320,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "barternbargain.getItem" : {
+      "path" : "items/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.getItem",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "barternbargain.insertUser" : {
       "path" : "user/{sessionId}",
       "httpMethod" : "POST",
@@ -337,27 +358,6 @@
         },
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.getItem" : {
-      "path" : "items/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.getItem",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
@@ -677,14 +677,14 @@
           "$ref" : "Item"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.acceptTrade" : {
-        "response" : {
-          "$ref" : "Trade"
-        }
-      },
       "hk.ust.barternbargain.BarterNBargainEndpoint.listUserTrade" : {
         "response" : {
           "$ref" : "TradeCollection"
+        }
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.acceptTrade" : {
+        "response" : {
+          "$ref" : "Trade"
         }
       },
       "hk.ust.barternbargain.BarterNBargainEndpoint.removeItem" : {
@@ -702,17 +702,17 @@
           "$ref" : "ItemCollection"
         }
       },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.getItem" : {
+        "response" : {
+          "$ref" : "Item"
+        }
+      },
       "hk.ust.barternbargain.BarterNBargainEndpoint.insertUser" : {
         "request" : {
           "$ref" : "User"
         },
         "response" : {
           "$ref" : "User"
-        }
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.getItem" : {
-        "response" : {
-          "$ref" : "Item"
         }
       },
       "hk.ust.barternbargain.BarterNBargainEndpoint.removeComment" : {
