@@ -39,19 +39,11 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 
 	private static final HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
 	private static final GsonFactory GSON_FACTORY = new GsonFactory();
-
-	private static long[] itemId = {
-		5750085036015616L,
-		5657382461898752L,
-		5733935958982656L,
-		5693417237512192L,
-		5766466041282560L,
-		5634387206995968L,
-		5700735861784576L};
 	
 	private Button search;
 	private Button mostpopular;
 	private Button price;
+	private ListView list;
 	private List<Item> items = new ArrayList<Item>();
 	private List<Item> searcheditems = new ArrayList<Item>();
 	private List<Item> sorteditems = new ArrayList<Item>();
@@ -99,6 +91,7 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_items);
+		list = (ListView) findViewById(R.id.itemsListView);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -129,13 +122,13 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 	//Add Items
 	private void populateItemList() {
 		//more items to be added
-		items.add(new Item(R.drawable.item1,"Textbook",999999,0,"New","Cash"));
-		items.add(new Item(R.drawable.item2,"Iphone 10",1,10,"New","Cash"));
-		items.add(new Item(R.drawable.item3,"Notebook",500,999,"New","Barter"));
-		items.add(new Item(R.drawable.item4,"Macbook",35,23,"New","Cash"));
-		items.add(new Item(R.drawable.item5,"Ball",9999,10,"New","Barter"));
-		items.add(new Item(R.drawable.item6,"Glasses",5,54,"Used","Barter"));
-		items.add(new Item(R.drawable.item7,"Coke",9998,9,"New","Cash"));
+		items.add(new Item(R.drawable.item1,"Textbook",999999,0,"New","Cash",5750085036015616L));
+		items.add(new Item(R.drawable.item2,"Iphone 10",1,10,"New","Cash",5657382461898752L));
+		items.add(new Item(R.drawable.item3,"Notebook",500,999,"New","Barter",5733935958982656L));
+		items.add(new Item(R.drawable.item4,"Macbook",35,23,"New","Cash",5693417237512192L));
+		items.add(new Item(R.drawable.item5,"Ball",9999,10,"New","Barter",5766466041282560L));
+		items.add(new Item(R.drawable.item6,"Glasses",5,54,"Used","Barter",5634387206995968L));
+		items.add(new Item(R.drawable.item7,"Coke",9998,9,"New","Cash",5700735861784576L));
 
 	}
 
@@ -149,17 +142,16 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 
 	//ClickItems
 	private void registerClickCallback() {
-		ListView list = (ListView) findViewById(R.id.itemsListView);
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View viewClicked, int position,
 					long id) {
 
-				Item clickedItem = items.get(position);
+				Item clickedItem = (Item)list.getAdapter().getItem(position);
 				clickedItem.incrementViews();
 				Intent intent = new Intent(getApplicationContext(),ShowItemActivity.class);
-				intent.putExtra("ITEM_ID", itemId[position]);
+				intent.putExtra("ITEM_ID", clickedItem.getKey());
 				startActivity(intent);
 
 
@@ -210,6 +202,10 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 			viewText.setText(""+currentItem.getViews());
 
 			return itemView;
+		}
+		
+		public List<Item> getItems() {
+			return items;
 		}
 
 
