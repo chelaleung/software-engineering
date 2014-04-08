@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -98,10 +99,6 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 
-		//Invoke Search
-		search = (Button)findViewById(R.id.button3);
-		search.setOnClickListener(this);
-
 		//ListItems
 		populateItemList();
 		populateListView();
@@ -135,7 +132,6 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 	//List All Items
 	private void populateListView() {
 		ArrayAdapter<Item> adapter = new MyListAdapter(items);
-		ListView list = (ListView) findViewById(R.id.itemsListView);
 		list.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 	}
@@ -239,7 +235,6 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		}
 
 		ArrayAdapter<Item> adapter = new MyListAdapter(searcheditems);
-		ListView list = (ListView) findViewById(R.id.itemsListView);
 		list.setAdapter(adapter);
 
 	}
@@ -262,7 +257,6 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 
 			//Show sorted items
 			ArrayAdapter<Item> adapter = new MyListAdapter(sorteditems);
-			ListView list = (ListView) findViewById(R.id.itemsListView);
 			list.setAdapter(adapter);    	
 		}
 	}
@@ -293,7 +287,6 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 				flag = 0;
 			}
 			ArrayAdapter<Item> adapter = new MyListAdapter(sorteditems);
-			ListView list = (ListView) findViewById(R.id.itemsListView);
 			list.setAdapter(adapter);    
 		}
 
@@ -304,7 +297,8 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.show_items, menu);
+		MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_list_items_actions, menu);
 		return true;
 	}
 
@@ -316,6 +310,9 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}
+		if (id == R.id.action_search){
+			onSearchRequested();
 		}
 		return super.onOptionsItemSelected(item);
 	}

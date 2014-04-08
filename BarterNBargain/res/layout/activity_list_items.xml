@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -6,48 +6,39 @@
     android:layout_gravity="center_vertical"
     android:background="#000000"
     tools:context="hk.ust.barternbargain.ListItemsActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button2"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="108dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Most Popular" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Most Popular" />
+
+        <ToggleButton
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Price"
+            android:textOff="Price↑"
+            android:textOn="Price↓" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/itemsListView"
         android:layout_width="match_parent"
         android:layout_height="380dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button3"
         android:layout_marginTop="16dp" >
     </ListView>
 
-    <Button
-        android:id="@+id/button3"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="1dp"
-        android:layout_toRightOf="@+id/button2"
-        android:gravity="center_vertical"
-        android:text="      Search" />
-
-    <ToggleButton
-        android:id="@+id/button4"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/itemsListView"
-        android:layout_alignParentRight="true"
-        android:textOff="Price↑"
-        android:textOn ="Price↓"
-        android:text="Price" />
-
-</RelativeLayout>
+</LinearLayout>
 
 
 
