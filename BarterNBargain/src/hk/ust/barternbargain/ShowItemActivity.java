@@ -19,6 +19,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,10 +30,12 @@ import android.widget.TextView;
 public class ShowItemActivity extends Activity implements OnClickListener {
 
 	private ProgressDialog progressDialog;
+	private Bitmap bmp;
 	private TextView textSeller;
 	private TextView textName;
 	private TextView textDescription;
 	private TextView textPrice;
+	private ImageView imageView;
 	private Button buyButton;
 	private Long itemId;
 	private Item item;
@@ -45,10 +48,11 @@ public class ShowItemActivity extends Activity implements OnClickListener {
 				List<String> imageUrls = item.getImageUrl();
 				if (imageUrls.size() != 0) {
 					URL url = new URL(imageUrls.get(0));
-					Bitmap bmp = BitmapFactory.decodeStream(
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inPurgeable = true;
+					bmp = BitmapFactory.decodeStream(
 							url.openConnection().getInputStream());
-					loadImageHandler.sendMessage(
-							loadImageHandler.obtainMessage(0, bmp));
+					loadImageHandler.sendEmptyMessage(0);
 				}
 				loadImageHandler.sendMessage(
 						loadImageHandler.obtainMessage(1, item));
@@ -64,8 +68,7 @@ public class ShowItemActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			progressDialog.dismiss();
 			if (msg.what == 0) {
-				ImageView imageView = (ImageView)findViewById(R.id.imageView1);
-				imageView.setImageBitmap((Bitmap)msg.obj);
+				imageView.setImageBitmap((Bitmap)bmp);
 			} else if (msg.what == 1) {
 				Item item = (Item)msg.obj;
 				textSeller.setText(item.getUserId());
@@ -93,6 +96,8 @@ public class ShowItemActivity extends Activity implements OnClickListener {
 		textName = (TextView)findViewById(R.id.textViewName);
 		textDescription = (TextView)findViewById(R.id.textViewDescription);
 		textPrice = (TextView)findViewById(R.id.textViewPrice);
+
+		imageView = (ImageView)findViewById(R.id.imageView1);
 		
 		buyButton.setOnClickListener(this);
 		progressDialog = ProgressDialog.show(this, "Loading", "Retrieving item details...");
@@ -120,6 +125,15 @@ public class ShowItemActivity extends Activity implements OnClickListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		Drawable background = imageView.getBackground();
+		if (background != null) {
+			background.setCallback(null);
+		}
+		if (bmp != null && !bmp.isRecycled()) {
+			bmp.recycle();
+			bmp = null;
+		}
+		System.gc();
 	}
 
 	private static Barternbargain getApiServiceHandle() {
