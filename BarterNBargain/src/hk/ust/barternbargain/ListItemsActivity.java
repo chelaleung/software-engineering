@@ -228,7 +228,7 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		searcheditems.clear();
 		for(int i=0;i<items.size();i++)
 		{
-			if(items.get(i).getName().equals(query))
+			if(items.get(i).getName().toLowerCase().contains(query.toLowerCase()))
 			{
 				searcheditems.add(items.get(i));
 			}
