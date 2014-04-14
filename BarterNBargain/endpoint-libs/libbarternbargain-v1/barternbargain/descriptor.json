@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/barternbargain/v1/20140408021645/java/1.16.0-rc/ust.hk-barternbargain-v1-20140408021645-java-1.16.0-rc-sources.jar", 
-      "path": "ust.hk-barternbargain-v1-20140408021645-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/barternbargain/v1/20140414101414/java/1.16.0-rc/ust.hk-barternbargain-v1-20140414101414-java-1.16.0-rc-sources.jar", 
+      "path": "ust.hk-barternbargain-v1-20140414101414-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-04-08 02:16"
+      "timestamp": "2014-04-14 10:14"
     }, 
     {
-      "path": "ust.hk-barternbargain-v1-20140408021645-java-1.16.0-rc.jar.properties", 
+      "path": "ust.hk-barternbargain-v1-20140414101414-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -702,5 +702,5 @@
   "packagePath": "barternbargain", 
   "language_version": "1.16.0-rc", 
   "id": "barternbargain:v1", 
-  "revision": 20140408021645
+  "revision": 20140414101414
 }

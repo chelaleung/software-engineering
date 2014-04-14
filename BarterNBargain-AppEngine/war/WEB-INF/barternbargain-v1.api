@@ -7,7 +7,7 @@
   "defaultVersion" : false,
   "adapter" : {
     "bns" : "https://cosmic-talent-490.appspot.com/_ah/spi",
-    "deadline" : 10.0,
+    "deadline" : 65.0,
     "type" : "lily"
   },
   "auth" : {
@@ -27,48 +27,6 @@
   "ownerName" : "ust.hk",
   "packagePath" : "barternbargain",
   "methods" : {
-    "barternbargain.getSession" : {
-      "path" : "sessions/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.getSession",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.listUserItem" : {
-      "path" : "users/{userId}/items",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listUserItem",
-      "request" : {
-        "parameters" : {
-          "userId" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "barternbargain.getUser" : {
       "path" : "users/{id}",
       "httpMethod" : "GET",
@@ -90,128 +48,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "barternbargain.listComment" : {
-      "path" : "items/{itemId}/comments",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listComment",
-      "request" : {
-        "parameters" : {
-          "itemId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.rejectTrade" : {
-      "path" : "trades/{id}/reject",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.rejectTrade",
-      "request" : {
-        "parameters" : {
-          "sessionId" : {
-            "type" : "string",
-            "required" : true
-          },
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.insertTrade" : {
-      "path" : "items/{itemId}/trades",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertTrade",
-      "request" : {
-        "parameters" : {
-          "sessionId" : {
-            "type" : "string",
-            "required" : true
-          },
-          "itemId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.insertComment" : {
-      "path" : "items/{itemId}/comments",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertComment",
-      "request" : {
-        "parameters" : {
-          "sessionId" : {
-            "type" : "string",
-            "required" : true
-          },
-          "itemId" : {
-            "type" : "int64",
-            "required" : true
-          },
-          "message" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.updateItem" : {
-      "path" : "item/{sessionId}",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.updateItem",
-      "request" : {
-        "parameters" : {
-          "sessionId" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "barternbargain.acceptTrade" : {
       "path" : "trades/{id}/accept",
       "httpMethod" : "POST",
@@ -228,6 +64,69 @@
           },
           "id" : {
             "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.getSession" : {
+      "path" : "sessions/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.getSession",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.removeSession" : {
+      "path" : "sessions/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.removeSession",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "barternbargain.listUserTrade" : {
+      "path" : "users/{userId}/trades",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listUserTrade",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "string",
             "required" : true
           }
         },
@@ -262,49 +161,6 @@
         "body" : "empty"
       }
     },
-    "barternbargain.updateComment" : {
-      "path" : "comment/{sessionId}",
-      "httpMethod" : "PUT",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.updateComment",
-      "request" : {
-        "parameters" : {
-          "sessionId" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.listUserTrade" : {
-      "path" : "users/{userId}/trades",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listUserTrade",
-      "request" : {
-        "parameters" : {
-          "userId" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "barternbargain.listItem" : {
       "path" : "items",
       "httpMethod" : "GET",
@@ -318,74 +174,6 @@
       },
       "response" : {
         "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.insertUser" : {
-      "path" : "user/{sessionId}",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertUser",
-      "request" : {
-        "parameters" : {
-          "sessionId" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.getItem" : {
-      "path" : "items/{id}",
-      "httpMethod" : "GET",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.getItem",
-      "request" : {
-        "parameters" : {
-          "id" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "barternbargain.removeComment" : {
-      "path" : "comments/{commentId}",
-      "httpMethod" : "DELETE",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.removeComment",
-      "request" : {
-        "parameters" : {
-          "sessionId" : {
-            "type" : "string",
-            "required" : true
-          },
-          "commentId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "empty"
       }
     },
     "barternbargain.updateUser" : {
@@ -410,14 +198,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "barternbargain.insertItem" : {
-      "path" : "item/{sessionId}",
-      "httpMethod" : "POST",
+    "barternbargain.updateComment" : {
+      "path" : "comment/{sessionId}",
+      "httpMethod" : "PUT",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertItem",
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.updateComment",
       "request" : {
         "parameters" : {
           "sessionId" : {
@@ -457,18 +245,208 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "barternbargain.removeSession" : {
-      "path" : "sessions/{id}",
+    "barternbargain.updateItem" : {
+      "path" : "item/{sessionId}",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.updateItem",
+      "request" : {
+        "parameters" : {
+          "sessionId" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.insertComment" : {
+      "path" : "items/{itemId}/comments",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertComment",
+      "request" : {
+        "parameters" : {
+          "sessionId" : {
+            "type" : "string",
+            "required" : true
+          },
+          "itemId" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "message" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.getItem" : {
+      "path" : "items/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.getItem",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.listUserItem" : {
+      "path" : "users/{userId}/items",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listUserItem",
+      "request" : {
+        "parameters" : {
+          "userId" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.rejectTrade" : {
+      "path" : "trades/{id}/reject",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.rejectTrade",
+      "request" : {
+        "parameters" : {
+          "sessionId" : {
+            "type" : "string",
+            "required" : true
+          },
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.insertUser" : {
+      "path" : "user/{sessionId}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertUser",
+      "request" : {
+        "parameters" : {
+          "sessionId" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.insertTrade" : {
+      "path" : "items/{itemId}/trades",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertTrade",
+      "request" : {
+        "parameters" : {
+          "sessionId" : {
+            "type" : "string",
+            "required" : true
+          },
+          "itemId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.listComment" : {
+      "path" : "items/{itemId}/comments",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.listComment",
+      "request" : {
+        "parameters" : {
+          "itemId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "barternbargain.removeComment" : {
+      "path" : "comments/{commentId}",
       "httpMethod" : "DELETE",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.removeSession",
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.removeComment",
       "request" : {
         "parameters" : {
-          "id" : {
+          "sessionId" : {
             "type" : "string",
+            "required" : true
+          },
+          "commentId" : {
+            "type" : "int64",
             "required" : true
           }
         },
@@ -477,10 +455,75 @@
       "response" : {
         "body" : "empty"
       }
+    },
+    "barternbargain.insertItem" : {
+      "path" : "item/{sessionId}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "hk.ust.barternbargain.BarterNBargainEndpoint.insertItem",
+      "request" : {
+        "parameters" : {
+          "sessionId" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
     }
   },
   "descriptor" : {
     "schemas" : {
+      "User" : {
+        "id" : "User",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "registrationTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "Trade" : {
+        "id" : "Trade",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "itemId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "sellerId" : {
+            "type" : "string"
+          },
+          "buyerId" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "postingTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
       "Session" : {
         "id" : "Session",
         "type" : "object",
@@ -494,6 +537,18 @@
           "creationTime" : {
             "type" : "string",
             "format" : "date-time"
+          }
+        }
+      },
+      "TradeCollection" : {
+        "id" : "TradeCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Trade"
+            }
           }
         }
       },
@@ -552,22 +607,6 @@
           }
         }
       },
-      "User" : {
-        "id" : "User",
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "registrationTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          }
-        }
-      },
       "Comment" : {
         "id" : "Comment",
         "type" : "object",
@@ -603,81 +642,57 @@
             }
           }
         }
-      },
-      "Trade" : {
-        "id" : "Trade",
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "itemId" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "sellerId" : {
-            "type" : "string"
-          },
-          "buyerId" : {
-            "type" : "string"
-          },
-          "status" : {
-            "type" : "string"
-          },
-          "postingTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          }
-        }
-      },
-      "TradeCollection" : {
-        "id" : "TradeCollection",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "Trade"
-            }
-          }
-        }
       }
     },
     "methods" : {
-      "hk.ust.barternbargain.BarterNBargainEndpoint.getSession" : {
-        "response" : {
-          "$ref" : "Session"
-        }
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.listUserItem" : {
-        "response" : {
-          "$ref" : "ItemCollection"
-        }
-      },
       "hk.ust.barternbargain.BarterNBargainEndpoint.getUser" : {
         "response" : {
           "$ref" : "User"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.listComment" : {
-        "response" : {
-          "$ref" : "CommentCollection"
-        }
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.rejectTrade" : {
+      "hk.ust.barternbargain.BarterNBargainEndpoint.acceptTrade" : {
         "response" : {
           "$ref" : "Trade"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.insertTrade" : {
+      "hk.ust.barternbargain.BarterNBargainEndpoint.getSession" : {
         "response" : {
-          "$ref" : "Trade"
+          "$ref" : "Session"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.insertComment" : {
+      "hk.ust.barternbargain.BarterNBargainEndpoint.removeSession" : {
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.listUserTrade" : {
+        "response" : {
+          "$ref" : "TradeCollection"
+        }
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.removeItem" : {
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.listItem" : {
+        "response" : {
+          "$ref" : "ItemCollection"
+        }
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.updateUser" : {
+        "request" : {
+          "$ref" : "User"
+        },
+        "response" : {
+          "$ref" : "User"
+        }
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.updateComment" : {
+        "request" : {
+          "$ref" : "Comment"
+        },
         "response" : {
           "$ref" : "Comment"
+        }
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.insertSession" : {
+        "response" : {
+          "$ref" : "Session"
         }
       },
       "hk.ust.barternbargain.BarterNBargainEndpoint.updateItem" : {
@@ -688,29 +703,24 @@
           "$ref" : "Item"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.acceptTrade" : {
-        "response" : {
-          "$ref" : "Trade"
-        }
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.removeItem" : {
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.updateComment" : {
-        "request" : {
-          "$ref" : "Comment"
-        },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.insertComment" : {
         "response" : {
           "$ref" : "Comment"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.listUserTrade" : {
+      "hk.ust.barternbargain.BarterNBargainEndpoint.getItem" : {
         "response" : {
-          "$ref" : "TradeCollection"
+          "$ref" : "Item"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.listItem" : {
+      "hk.ust.barternbargain.BarterNBargainEndpoint.listUserItem" : {
         "response" : {
           "$ref" : "ItemCollection"
+        }
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.rejectTrade" : {
+        "response" : {
+          "$ref" : "Trade"
         }
       },
       "hk.ust.barternbargain.BarterNBargainEndpoint.insertUser" : {
@@ -721,20 +731,17 @@
           "$ref" : "User"
         }
       },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.getItem" : {
+      "hk.ust.barternbargain.BarterNBargainEndpoint.insertTrade" : {
         "response" : {
-          "$ref" : "Item"
+          "$ref" : "Trade"
+        }
+      },
+      "hk.ust.barternbargain.BarterNBargainEndpoint.listComment" : {
+        "response" : {
+          "$ref" : "CommentCollection"
         }
       },
       "hk.ust.barternbargain.BarterNBargainEndpoint.removeComment" : {
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.updateUser" : {
-        "request" : {
-          "$ref" : "User"
-        },
-        "response" : {
-          "$ref" : "User"
-        }
       },
       "hk.ust.barternbargain.BarterNBargainEndpoint.insertItem" : {
         "request" : {
@@ -743,13 +750,6 @@
         "response" : {
           "$ref" : "Item"
         }
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.insertSession" : {
-        "response" : {
-          "$ref" : "Session"
-        }
-      },
-      "hk.ust.barternbargain.BarterNBargainEndpoint.removeSession" : {
       }
     }
   }
