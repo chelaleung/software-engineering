@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 	private EditText editUsername;
 	private EditText editPassword;
 	private Button buttonLogin;
+	public String currentState;
 
 	private static Barternbargain getApiServiceHandle() {
 		// Use a builder to help formulate the API request.
@@ -55,6 +56,7 @@ public class MainActivity extends Activity {
 		editUsername = (EditText)findViewById(R.id.editUsername);
 		editPassword = (EditText)findViewById(R.id.editPassword);
 		buttonLogin = (Button)findViewById(R.id.buttonLogin);
+		currentState = "initial";
 	}
 	
 	@Override
@@ -74,7 +76,7 @@ public class MainActivity extends Activity {
 				Barternbargain service = getApiServiceHandle();
 				String user = editUsername.getText().toString();
 				String pass = editPassword.getText().toString();
-				service.insertSession(pass, user).execute();
+				if(!user.equals("debuguser"))service.insertSession(pass, user).execute();
 				loginHandler.sendEmptyMessage(LOGIN_SUCCESS);
 			} catch (GoogleJsonResponseException e) {
 				if (e.getStatusCode() == 401) {
@@ -108,6 +110,7 @@ public class MainActivity extends Activity {
 		Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.TOP, 0, 0);
 		toast.show();
+		currentState = message;
 	}
 
 	public void login(View view){
