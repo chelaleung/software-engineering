@@ -5,7 +5,7 @@ public class Item {
 
 	
 	public Item(int pictureID, String name, int price, int views,
-			String condition, String transaction_method, Long key) {
+			String condition, int transaction_method, Long key) {
 		super();
 		this.pictureID = pictureID;
 		this.name = name;
@@ -35,7 +35,7 @@ public class Item {
 	public String getCondition() {
 		return condition;
 	}
-	public String getTransaction_method() {
+	public int getTransaction_method() {
 		return transaction_method;
 	}
 	public Long getKey() {
@@ -47,7 +47,7 @@ public class Item {
 	private int price;
 	private int views;
 	private String condition;
-	private String transaction_method;
+	private int transaction_method;
 	private Long key;
 
 }

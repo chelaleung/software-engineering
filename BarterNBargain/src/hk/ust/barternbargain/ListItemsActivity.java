@@ -15,6 +15,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.app.Application;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 	private List<Item> items = new ArrayList<Item>();
 	private List<Item> searcheditems = new ArrayList<Item>();
 	private List<Item> sorteditems = new ArrayList<Item>();
+	
 	
 
 	//flag for sorting by price
@@ -119,13 +121,13 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 	//Add Items
 	private void populateItemList() {
 		//more items to be added
-		items.add(new Item(R.drawable.item1,"Textbook",999999,0,"New","Cash",5750085036015616L));
-		items.add(new Item(R.drawable.item2,"Iphone 10",1,10,"New","Cash",5657382461898752L));
-		items.add(new Item(R.drawable.item3,"Notebook",500,999,"New","Barter",5733935958982656L));
-		items.add(new Item(R.drawable.item4,"Macbook",35,23,"New","Cash",5693417237512192L));
-		items.add(new Item(R.drawable.item5,"Ball",9999,10,"New","Barter",5766466041282560L));
-		items.add(new Item(R.drawable.item6,"Glasses",5,54,"Used","Barter",5634387206995968L));
-		items.add(new Item(R.drawable.item7,"Coke",9998,9,"New","Cash",5700735861784576L));
+		items.add(new Item(R.drawable.item1,"Textbook",999999,0,"New",0,5750085036015616L));
+		items.add(new Item(R.drawable.item2,"Iphone 10",1,10,"New",0,5657382461898752L));
+		items.add(new Item(R.drawable.item3,"Notebook",500,999,"New",1,5733935958982656L));
+		items.add(new Item(R.drawable.item4,"Macbook",35,23,"New",0,5693417237512192L));
+		items.add(new Item(R.drawable.item5,"Ball",9999,10,"New",1,5766466041282560L));
+		items.add(new Item(R.drawable.item6,"Glasses",5,54,"Used",1,5634387206995968L));
+		items.add(new Item(R.drawable.item7,"Coke",9998,9,"New",0,5700735861784576L));
 
 	}
 
@@ -228,7 +230,7 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		searcheditems.clear();
 		for(int i=0;i<items.size();i++)
 		{
-			if(items.get(i).getName().toLowerCase().contains(query.toLowerCase()))
+			if(items.get(i).getName().equals(query))
 			{
 				searcheditems.add(items.get(i));
 			}
@@ -307,12 +309,20 @@ public class ListItemsActivity extends ActionBarActivity implements OnClickListe
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
+		// My Item function to be added here
+		// Personal Info function to be added here
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		if (id == R.id.action_personalinfo) {
+			Intent myIntent = new Intent(ListItemsActivity.this, PersonalInfo.class);
+			startActivity(myIntent);
 		}
 		if (id == R.id.action_search){
 			onSearchRequested();
+		}
+		
+		if (id == R.id.action_logout){
+			Intent myIntent = new Intent(ListItemsActivity.this, MainActivity.class);
+			startActivity(myIntent);
 		}
 		return super.onOptionsItemSelected(item);
 	}

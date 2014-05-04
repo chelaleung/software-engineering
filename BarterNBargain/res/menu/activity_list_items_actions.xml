@@ -6,4 +6,33 @@
           android:icon="@android:drawable/ic_menu_search"
           android:title="Search"
           barternbargain:showAsAction="always"/>
+    
+    <item
+         android:id="@+id/action_personalinfo"
+         android:orderInCategory="100"
+         android:showAsAction="never"
+         android:title="@string/action_personalinfo"/>
+    
+    <item
+         android:id="@+id/action_myfavourite"
+         android:orderInCategory="100"
+         android:showAsAction="never"
+         android:title="@string/action_myfavourite"/>
+    
+    <item
+         android:id="@+id/action_myitems"
+         android:orderInCategory="100"
+         android:showAsAction="never"
+         android:title="@string/action_myitems"/>
+    
+    <item
+         android:id="@+id/action_logout"
+         android:orderInCategory="100"
+         android:showAsAction="never"
+         android:title="@string/action_logout"/>
+    
+ 
+    
+    
+        
 </menu>

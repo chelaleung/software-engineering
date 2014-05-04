@@ -27,7 +27,7 @@
         android:theme="@style/Theme.AppCompat" >
         <activity
             android:name="hk.ust.barternbargain.MainActivity"
-        	android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,8 +45,15 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity android:name="hk.ust.barternbargain.ShowItemActivity" >
+        </activity>
         <activity
-            android:name="hk.ust.barternbargain.ShowItemActivity">
+            android:name="hk.ust.barternbargain.NewItemActivity"
+            android:label="@string/title_activity_new_item" >
+        </activity>
+        <activity
+            android:name="hk.ust.barternbargain.PersonalInfo"
+            android:label="@string/action_personal_info" >
         </activity>
     </application>
 
